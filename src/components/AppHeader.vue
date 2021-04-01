@@ -1,13 +1,13 @@
 <template>
   <nav
-    class="navbar navbar-expand-lg navbar-light bg-light mb-4"
+    class="navbar navbar-expand-md navbar-light bg-light mb-4"
     >
     <div class="container-fluid">
       <router-link class="navbar-brand" to="/">Casting Agency</router-link>
       <button class="navbar-toggler" type="button" @click="navbarExpand = !navbarExpand">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="navbar-collapse" :class="{collapse: navbarExpand}" id="navbarNav">
+      <div class="navbar-collapse" :class="{collapse: !navbarExpand}" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item" v-for="(link, index) in navbarLinks" :key="index">
             <router-link
