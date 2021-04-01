@@ -1,7 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from './views/Home.vue'
+import Profile from './views/Profile.vue'
+import Actors from './views/Actors.vue'
 import NotFound from './views/404.vue'
+import { registerRouter } from './auth'
 
 Vue.use(VueRouter)
 
@@ -9,7 +12,18 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
+  },
+  {
+    path: '/profile',
+    name: 'Profile',
+    component: Profile,
+  },
+  {
+    path: '/actors',
+    name: 'Actors',
+    component: Actors,
+    meta: {requiresAuth: true},
   },
   {
     path: '*',
@@ -19,7 +33,10 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  routes
+  routes,
+  mode: 'history',
 })
+
+registerRouter(router)
 
 export default router

@@ -18,7 +18,7 @@
           <td>{{ actor.age }}</td>
           <td>{{ ['Man', 'Woman'][actor.gender] }}</td>
           <td>
-            <button class="btn btn-success" @click="editActor(actor.id)">Edit</button>
+            <button class="btn btn-sm btn-primary" @click="editActor(actor.id)">Edit</button>
           </td>
         </tr>
       </tbody>

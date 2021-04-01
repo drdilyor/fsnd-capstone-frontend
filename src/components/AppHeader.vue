@@ -15,6 +15,15 @@
             >{{ link.name }}</router-link>
           </li>
         </ul>
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <router-link
+              class="nav-link"
+              exact-active-class="active"
+              to="/profile"
+            >Profile</router-link>
+          </li>
+        </ul>
       </div>
     </div>
   </nav>

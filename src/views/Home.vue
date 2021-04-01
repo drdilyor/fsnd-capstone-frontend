@@ -1,7 +1,7 @@
 <template>
   <div class="container home-page">
     <h1 class="text-center">Casting Agency Application</h1>
-    <div class="home-page-cards">
+    <div class="home-page-cards flex-grow-1" v-if="$auth.loggedIn()">
       <div class="card">
         <router-link class="card-body" to="/actors" tag="div">
           <h5 class="card-title">Actors</h5>
@@ -15,6 +15,9 @@
         </router-link>
       </div>
     </div>
+    <p v-else class="flex-grow-1 text-center-xy" style="vertical-align: top">
+      Log in to continue. <router-link to="/profile">Open profile page</router-link>
+    </p>
   </div>
 </template>
 
@@ -31,11 +34,16 @@ export default {
 }
 
 .home-page-cards {
-  flex: 1;
   display: grid;
   column-gap: 1rem;
   row-gap: 1rem;
   grid-template-columns: repeat(auto-fit, 18rem);
+  justify-content: center;
+  align-items: center;
+}
+
+.text-center-xy {
+  display: flex;
   justify-content: center;
   align-items: center;
 }
