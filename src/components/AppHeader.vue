@@ -1,7 +1,5 @@
 <template>
-  <nav
-    class="navbar navbar-expand-md navbar-light bg-light mb-4"
-    >
+  <nav class="navbar navbar-expand-md navbar-light bg-light mb-4">
     <div class="container-fluid">
       <router-link class="navbar-brand" to="/">Casting Agency</router-link>
       <button class="navbar-toggler" type="button" @click="navbarExpand = !navbarExpand">

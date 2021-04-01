@@ -1,6 +1,6 @@
 <template>
   <footer class="bg-light pt-4">
-    <div class="container">
+    <div class="container text-center">
       <p>Casting Agency &copy; Dilyorbek Valijonov (drdilyor)</p>
       <p>
         <a href="https://t.me/drdilyor">Telegram</a>
@@ -10,9 +10,3 @@
     </div>
   </footer>
 </template>
-
-<style>
-footer > .container {
-  text-align: center;
-}
-</style>
