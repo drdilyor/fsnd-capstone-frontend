@@ -23,6 +23,9 @@
         </tr>
       </tbody>
     </table>
+    <transition name="modal">
+      <router-view/>
+    </transition>
   </div>
 </template>
 
