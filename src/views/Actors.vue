@@ -37,13 +37,29 @@
 </template>
 
 <script>
+import hub from './ActorHub'
 export default {
   data() { return {
     actors: null,
   } },
+  methods: {
+    actorUpdated(i) {
+      this.$api.get('/actors/'+i)
+      .then(res => {
+        console.log(res)
+        const index = this.actors.findIndex(a => a.id == i)
+        console.log({index})
+        this.actors.splice(index, 1, res.actor)
+      })
+    }
+  },
   created() {
     this.$api.get('/actors')
     .then(res => this.actors = res.actors)
-  }
+    hub.$on('update-actor', this.actorUpdated)
+  },
+  beforeDestroy() {
+    hub.$off('update-actor', this.actorUpdated)
+  },
 }
 </script>

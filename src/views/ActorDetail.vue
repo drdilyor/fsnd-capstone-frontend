@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import hub from './ActorHub'
 export default {
   components: {
     Modal: require('@/components/ui/Modal.vue').default,
@@ -29,17 +30,15 @@ export default {
     close() {
       this.formMeta.disabled = true
       this.submitting = true
-      this.$api.request('PATCH', '/actors/'+this.actor.id, {
-        ...this.actor,
-        movie_id: this.actor.Movie === '' ? null : this.actor.movie_id
-      })
+      this.$api.request('PATCH', '/actors/'+this.actor.id, this.actor)
       .then(res => {
         console.log(res)
         if (res.error == 422) {
           this.formMeta.disabled = false
           this.submitting = false
-          alert('Movie doesn\'n exist')
+          alert("Error")
         } else {
+          hub.$emit('update-actor', this.actor.id)
           this.$router.push('/actors')
         }
       })

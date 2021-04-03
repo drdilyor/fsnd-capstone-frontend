@@ -20,7 +20,7 @@ export default {
     actor: {
       name: '',
       age: '',
-      movie_id: '',
+      gender: 0,
     },
     formMeta: {
       valid: true,
@@ -32,10 +32,7 @@ export default {
     close() {
       this.formMeta.disabled = true
       this.submitting = true
-      this.$api.request('POST', '/actors', {
-        ...this.actor,
-        movie_id: this.actor.movie_id === '' ? null : this.actor.movie_id
-      })
+      this.$api.request('POST', '/actors', this.actor)
       .then(res => {
         console.log(res)
         if (res.error == 422) {

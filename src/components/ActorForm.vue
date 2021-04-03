@@ -21,9 +21,18 @@
       <div class="mb-3"/>
       <p v-if="!$v.actor.age.required" class="text-danger">This field is required</p>
       <p v-if="!$v.actor.age.between" class="text-danger">Age must be between 3 and 99</p>
-
-      <label class="form-label" for="actorMovie">Movie id:</label>
-      <input class="form-control" id="actorMovie" type="number" v-model.number="actor.movie_id">
+      
+      <p>Gender:
+        <label>
+          <input type="radio" value="0" name="actorGender" required v-model.number="actor.gender">
+          Man
+        </label>
+        <span class="ms-3"/>
+        <label>
+          <input type="radio" value="1" name="actorGender" required v-model.number="actor.gender">
+          Woman
+        </label>
+      </p>
     </fieldset>
   </form>
 </template>
