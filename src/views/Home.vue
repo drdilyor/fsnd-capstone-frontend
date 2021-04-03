@@ -39,7 +39,7 @@ export default {
   row-gap: 1rem;
   grid-template-columns: repeat(auto-fit, 18rem);
   justify-content: center;
-  align-items: center;
+  align-content: center;
 }
 
 .text-center-xy {

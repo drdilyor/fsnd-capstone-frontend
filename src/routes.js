@@ -29,12 +29,13 @@ const routes = [
     path: '/actors',
     name: 'Actors',
     component: Actors,
-    meta: {requiresAuth: true},
+    meta: {requiresAuth: true, requiresPerm: 'read:actor'},
     children: [
       {
         path: ':id',
         name: 'ActorDetail',
         component: ActorDetail,
+        meta: {requiresPerm: 'update:actor'},
       }
     ]
   },

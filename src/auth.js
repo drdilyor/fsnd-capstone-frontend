@@ -13,7 +13,23 @@ const auth = {
         if (!auth.loggedIn()) {
           auth.login()
         } else {
-          next()
+          // Check if user has enough permissions
+          let forbidden = false
+          for (const record of to.matched) {
+            const perm = record.meta.requiresPerm
+            if (perm && !auth.can(perm)) {
+              forbidden = perm
+              break
+            }
+          }
+          if (forbidden) {
+            if (confirm("This account doesn't have enough permissions: "
+              +forbidden+'. Do you want to log into another account?'))
+              auth.login()
+          }
+          else {
+            next()
+          }
         }
       } else {
         next() // make sure to always call next()!
@@ -73,6 +89,7 @@ const auth = {
   },
   
   logoutHard() {
+    auth.logout()
     window.location = `https://${auth.config.domain}/logout`
   },
 

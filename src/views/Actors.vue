@@ -16,7 +16,10 @@
         <tr v-for="actor in actors" :key="actor.id">
           <td>{{ actor.id }}</td>
           <td>
-            <router-link :to="'/actors/'+actor.id">{{ actor.name }}</router-link>
+            <router-link v-if="$auth.can('update:actor')" :to="'/actors/'+actor.id">
+              {{ actor.name }}
+            </router-link> 
+            <span v-else>{{ actor.name }}</span>
           </td>
           <td>{{ actor.age }}</td>
           <td>{{ ['Man', 'Woman'][actor.gender] }}</td>
