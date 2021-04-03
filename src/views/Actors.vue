@@ -1,6 +1,10 @@
 <template>
   <div class="container">
-    <h1>Actors</h1>
+    <h1>Actors
+      <router-link to="/actors/add" class="btn btn-sm btn-success float-right">
+        Add
+      </router-link>
+    </h1>
     <p v-if="actors === null">Loading...</p>
     <p v-else-if="actors.length == 0">No actors yet</p>
     <table v-else class="table table-bordered">

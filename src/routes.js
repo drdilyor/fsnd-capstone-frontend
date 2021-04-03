@@ -4,6 +4,7 @@ import Home from './views/Home.vue'
 import Profile from './views/Profile.vue'
 import Actors from './views/Actors.vue'
 import ActorDetail from './views/ActorDetail.vue'
+import ActorAdd from './views/ActorAdd.vue'
 import NotFound from './views/404.vue'
 import { registerRouter } from './auth'
 
@@ -32,6 +33,11 @@ const routes = [
     meta: {requiresAuth: true, requiresPerm: 'read:actor'},
     children: [
       {
+        path: 'add',
+        name: 'ActorAdd',
+        component: ActorAdd,
+        meta: {requiresPerm: 'add:actor'},
+      }, {
         path: ':id',
         name: 'ActorDetail',
         component: ActorDetail,
