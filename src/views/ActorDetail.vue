@@ -47,8 +47,13 @@ export default {
   created() {
     this.$api.get('/actors/'+this.$route.params.id)
     .then(res => {
-      this.actor = res.actor
-      this.title = res.actor.name
+      if (res.error == 404) {
+          this.$router.push('/404')
+      }
+      else {
+        this.actor = res.actor
+        this.title = res.actor.name
+      }
     })
   },
 }

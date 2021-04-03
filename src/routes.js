@@ -4,16 +4,12 @@ import Home from './views/Home.vue'
 import Profile from './views/Profile.vue'
 import Actors from './views/Actors.vue'
 import ActorDetail from './views/ActorDetail.vue'
+import ActorDelete from './views/ActorDelete.vue'
 import ActorAdd from './views/ActorAdd.vue'
 import NotFound from './views/404.vue'
 import { registerRouter } from './auth'
 
 Vue.use(VueRouter)
-// const Nop = {
-//   render(h) {
-//     return h('div')
-//   }
-// }
 
 const routes = [
   {
@@ -37,6 +33,11 @@ const routes = [
         name: 'ActorAdd',
         component: ActorAdd,
         meta: {requiresPerm: 'add:actor'},
+      }, {
+        path: ':id/delete',
+        name: 'ActorDelete',
+        component: ActorDelete,
+        meta: {requiresPerm: 'delete:actor'},
       }, {
         path: ':id',
         name: 'ActorDetail',

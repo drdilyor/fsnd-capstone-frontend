@@ -56,11 +56,12 @@ export default {
 .modal-leave-active .modal-dialog {
   transform: translateY(-50px);
 }
-.modal-leave-active .modal-dialog {
+/* .modal-leave-active .modal-dialog {
   transition-delay: .2s;
-}
+} */
 .modal-dialog {
   transition: transform .3s ease-out;
+  transition-delay: .2s;
 }
 
 .modal {

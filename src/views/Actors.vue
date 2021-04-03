@@ -13,11 +13,11 @@
           <th style="width: 3rem">ID</th>
           <th>Name</th>
           <th>Age</th>
-          <th>Gender</th>
+          <th style="padding-right: 2rem">Gender</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="actor in actors" :key="actor.id">
+        <tr v-for="actor in actors" :key="actor.id" class="actor-row">
           <td>{{ actor.id }}</td>
           <td>
             <router-link v-if="$auth.can('update:actor')" :to="'/actors/'+actor.id">
@@ -26,7 +26,9 @@
             <span v-else>{{ actor.name }}</span>
           </td>
           <td>{{ actor.age }}</td>
-          <td>{{ ['Man', 'Woman'][actor.gender] }}</td>
+          <td>{{ ['Man', 'Woman'][actor.gender] }}
+            <button class="btn-close btn btn-danger float-end" @click="$router.push('/actors/'+actor.id+'/delete')"/>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -54,6 +56,10 @@ export default {
     },
     actorAdded(actor) {
       this.actors.push(actor)
+    },
+    actorDeleted(id) {
+      const index = this.actors.findIndex(a => a.id == id)
+      this.actors.splice(index, 1)
     }
   },
   created() {
@@ -61,10 +67,12 @@ export default {
     .then(res => this.actors = res.actors)
     hub.$on('update-actor', this.actorUpdated)
     hub.$on('add-actor', this.actorAdded)
+    hub.$on('delete-actor', this.actorDeleted)
   },
   beforeDestroy() {
     hub.$off('update-actor', this.actorUpdated)
     hub.$off('add-actor', this.actorAdded)
+    hub.$off('delete-actor', this.actorDeleted)
   },
 }
 </script>
