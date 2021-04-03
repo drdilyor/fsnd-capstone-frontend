@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import hub from './ActorHub'
 export default {
   components: {
     Modal: require('@/components/ui/Modal.vue').default,
@@ -40,6 +41,7 @@ export default {
           this.submitting = false
           alert('Movie doesn\'n exist')
         } else {
+          hub.$emit('add-actor', res.actor)
           this.$router.push('/actors')
         }
       })

@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h1>Actors
-      <router-link to="/actors/add" class="btn btn-sm btn-success float-right">
+      <router-link to="/actors/add" class="btn btn-sm btn-success float-end">
         Add
       </router-link>
     </h1>
@@ -51,15 +51,20 @@ export default {
         console.log({index})
         this.actors.splice(index, 1, res.actor)
       })
+    },
+    actorAdded(actor) {
+      this.actors.push(actor)
     }
   },
   created() {
     this.$api.get('/actors')
     .then(res => this.actors = res.actors)
     hub.$on('update-actor', this.actorUpdated)
+    hub.$on('add-actor', this.actorAdded)
   },
   beforeDestroy() {
     hub.$off('update-actor', this.actorUpdated)
+    hub.$off('add-actor', this.actorAdded)
   },
 }
 </script>
