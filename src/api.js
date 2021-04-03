@@ -11,10 +11,10 @@ const api = {
     if (endpoint.startsWith('/'))
       endpoint = endpoint.slice(1)
 
-    const fetchArgs = {headers: {}}
+    const fetchArgs = {method, headers: {}}
     if (body) {
       fetchArgs.body = JSON.stringify(body)
-      fetchArgs.headers['Conten-Type'] = 'application/json'
+      fetchArgs.headers['Content-Type'] = 'application/json'
     }
     if (auth.loggedIn())
       fetchArgs.headers.Authorization = `Bearer ${auth.getJwt()}`

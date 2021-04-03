@@ -8,6 +8,9 @@ Vue.config.productionTip = false
 Vue.prototype.$auth = auth
 Vue.prototype.$api = api
 
+import Vuelidate from 'vuelidate'
+Vue.use(Vuelidate)
+
 new Vue({
   router,
   render: h => h(App)
