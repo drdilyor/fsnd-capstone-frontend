@@ -3,8 +3,9 @@
     <modal title="Add an actor" @close="close">
       <actor-form v-if="actor !== null" :actor="actor" :meta="formMeta" @submit="close"/>
       <template #footer>
-        <button class="btn btn-primary" type="button" :disabled="!formMeta.valid" @click="close">
-          {{ !submitting ? 'Close' : 'Saving..'}}
+        <button class="btn btn-secondary" type="button" @click="close">Cancel</button>
+        <button class="btn btn-primary" type="button" :disabled="!formMeta.valid" @click="save">
+          {{ !submitting ? 'Save' : 'Saving..'}}
         </button>
       </template>
     </modal>
@@ -24,28 +25,31 @@ export default {
       gender: 0,
     },
     formMeta: {
-      valid: true,
+      valid: false,
       disabled: false,
     },
     submitting: false,
   } },
   methods: {
-    close() {
+    save() {
       this.formMeta.disabled = true
       this.submitting = true
       this.$api.request('POST', '/actors', this.actor)
       .then(res => {
         console.log(res)
-        if (res.error == 422) {
+        if (res.success) {
+          hub.$emit('add-actor', res.actor)
+          this.close()
+        } else {
           this.formMeta.disabled = false
           this.submitting = false
           alert("Unprocessable!")
-        } else {
-          hub.$emit('add-actor', res.actor)
-          this.$router.push('/actors')
         }
       })
-    }
+    },
+    close() {
+      this.$router.push('/actors')
+    },
   },
 }
 </script>

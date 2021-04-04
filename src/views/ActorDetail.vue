@@ -3,8 +3,9 @@
     <modal :title="title" @close="close">
       <actor-form v-if="actor !== null" :actor="actor" :meta="formMeta" @submit="close"/>
       <template #footer>
-        <button class="btn btn-primary" type="button" :disabled="!formMeta.valid" @click="close">
-          {{ !submitting ? 'Close' : 'Saving..'}}
+        <button class="btn btn-secondary" type="button" @click="close">Cancel</button>
+        <button class="btn btn-primary" type="button" :disabled="!formMeta.valid" @click="save">
+          {{ !submitting ? 'Save' : 'Saving..'}}
         </button>
       </template>
     </modal>
@@ -27,7 +28,8 @@ export default {
     submitting: false,
   } },
   methods: {
-    close() {
+    save() {
+      console.log('saving')
       this.formMeta.disabled = true
       this.submitting = true
       this.$api.request('PATCH', '/actors/'+this.actor.id, this.actor)
@@ -39,10 +41,13 @@ export default {
           alert("Error")
         } else {
           hub.$emit('update-actor', this.actor.id)
-          this.$router.push('/actors')
+          this.close()
         }
       })
-    }
+    },
+    close() {
+      this.$router.push('/actors')
+    },
   },
   created() {
     this.$api.get('/actors/'+this.$route.params.id)

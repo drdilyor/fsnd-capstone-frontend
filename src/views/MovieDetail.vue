@@ -3,8 +3,9 @@
     <modal :title="title" @close="close">
       <movie-form v-if="movie !== null" :movie="movie" :meta="formMeta" @submit="close"/>
       <template #footer>
-        <button class="btn btn-primary" type="button" :disabled="!formMeta.valid" @click="close">
-          {{ !submitting ? 'Close' : 'Saving..'}}
+        <button class="btn btn-secondary" type="button" @click="close">Cancel</button>
+        <button class="btn btn-primary" type="button" :disabled="!formMeta.valid" @click="save">
+          {{ !submitting ? 'Save' : 'Saving..'}}
         </button>
       </template>
     </modal>
@@ -27,7 +28,7 @@ export default {
     submitting: false,
   } },
   methods: {
-    close() {
+    save() {
       this.formMeta.disabled = true
       this.submitting = true
       this.$api.request('PATCH', '/movies/'+this.movie.id, this.movie)
@@ -39,10 +40,13 @@ export default {
           alert("Error")
         } else {
           hub.$emit('update-movie', this.movie.id)
-          this.$router.push('/movies')
+          this.close()
         }
       })
-    }
+    },
+    close() {
+      this.$router.push('/movies')
+    },
   },
   created() {
     this.$api.get('/movies/'+this.$route.params.id)

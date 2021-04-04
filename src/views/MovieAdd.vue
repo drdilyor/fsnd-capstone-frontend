@@ -3,8 +3,9 @@
     <modal title="Add a movie" @close="close">
       <movie-form v-if="movie !== null" :movie="movie" :meta="formMeta" @submit="close"/>
       <template #footer>
-        <button class="btn btn-primary" type="button" :disabled="!formMeta.valid" @click="close">
-          {{ !submitting ? 'Close' : 'Saving..'}}
+        <button class="btn btn-secondary" type="button" @click="close">Cancel</button>
+        <button class="btn btn-primary" type="button" :disabled="!formMeta.valid" @click="save">
+          {{ !submitting ? 'Save' : 'Saving..'}}
         </button>
       </template>
     </modal>
@@ -23,13 +24,13 @@ export default {
       release_date: '',
     },
     formMeta: {
-      valid: true,
+      valid: false,
       disabled: false,
     },
     submitting: false,
   } },
   methods: {
-    close() {
+    save() {
       this.formMeta.disabled = true
       this.submitting = true
       this.$api.request('POST', '/movies', this.movie)
@@ -37,13 +38,17 @@ export default {
         console.log(res)
         if (res.success) {
           hub.$emit('add-movie', res.movie)
-          this.$router.push('/movies')
+          this.close()
         } else {
           this.formMeta.disabled = false
           this.submitting = false
+          alert('Unprocessable!')
         }
       })
-    }
+    },
+    close() {
+      this.$router.push('/movies')
+    },
   },
 }
 </script>
