@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <img class="rounded-circle page-top-img" :src="require('@/assets/img/movies.jpg')" alt="Actors image">
     <h1>Movies
       <router-link to="/movies/add" class="btn btn-sm btn-success float-end">
         Add
@@ -75,3 +76,4 @@ export default {
 }
 </script>
 
+// .page-top-img is defined in Actors.vue

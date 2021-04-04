@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <img class="rounded-circle page-top-img" :src="require('@/assets/img/actors.jpg')" alt="Actors image">
     <h1>Actors
       <router-link to="/actors/add" class="btn btn-sm btn-success float-end">
         Add
@@ -76,3 +77,11 @@ export default {
   },
 }
 </script>
+
+<style>
+.page-top-img {
+  display: block;
+  width: 10rem;
+  margin: 0 auto 2rem;
+}
+</style>
