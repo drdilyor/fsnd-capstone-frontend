@@ -3,7 +3,7 @@ function required() {
   throw TypeError()
 }
 const api = {
-  backend: 'http://localhost:5000',
+  backend: require(process.env.NODE_ENV == 'production' ? './environment.prod.js' : './environment.dev.js').default.backend,
   get(...args) {
     return api.request('GET', ...args)
   },

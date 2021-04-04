@@ -3,7 +3,6 @@ const auth = {
     domain: 'drdilyor.us.auth0.com',
     clientId: 'Am7VJHw26vNeGonkgD3XbxMBvcqbsxBU',
     audience: 'fsnd-capstone',
-    
   },
   registerRouter(r) {
     r.beforeEach((to, from, next) => {
