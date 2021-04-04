@@ -6,6 +6,10 @@ import Actors from './views/Actors.vue'
 import ActorDetail from './views/ActorDetail.vue'
 import ActorDelete from './views/ActorDelete.vue'
 import ActorAdd from './views/ActorAdd.vue'
+import Movies from './views/Movies.vue'
+import MovieDetail from './views/MovieDetail.vue'
+import MovieDelete from './views/MovieDelete.vue'
+import MovieAdd from './views/MovieAdd.vue'
 import NotFound from './views/404.vue'
 import { registerRouter } from './auth'
 
@@ -43,6 +47,30 @@ const routes = [
         name: 'ActorDetail',
         component: ActorDetail,
         meta: {requiresPerm: 'update:actor'},
+      }
+    ]
+  },
+  {
+    path: '/movies',
+    name: 'Movies',
+    component: Movies,
+    meta: {requiresAuth: true, requiresPerm: 'read:movie'},
+    children: [
+      {
+        path: 'add',
+        name: 'MovieAdd',
+        component: MovieAdd,
+        meta: {requiresPerm: 'add:movie'},
+      }, {
+        path: ':id/delete',
+        name: 'MovieDelete',
+        component: MovieDelete,
+        meta: {requiresPerm: 'delete:movie'},
+      }, {
+        path: ':id',
+        name: 'MoviEDetail',
+        component: MovieDetail,
+        meta: {requiresPerm: 'update:movie'},
       }
     ]
   },

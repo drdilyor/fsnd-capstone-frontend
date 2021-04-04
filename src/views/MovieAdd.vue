@@ -1,7 +1,7 @@
 <template>
   <!-- This component will be used as a modal nested view -->
-    <modal title="Add an actor" @close="close">
-      <actor-form v-if="actor !== null" :actor="actor" :meta="formMeta" @submit="close"/>
+    <modal title="Add a movie" @close="close">
+      <movie-form v-if="movie !== null" :movie="movie" :meta="formMeta" @submit="close"/>
       <template #footer>
         <button class="btn btn-primary" type="button" :disabled="!formMeta.valid" @click="close">
           {{ !submitting ? 'Close' : 'Saving..'}}
@@ -15,13 +15,12 @@ import hub from './hub'
 export default {
   components: {
     Modal: require('@/components/ui/Modal.vue').default,
-    ActorForm: require('@/components/ActorForm.vue').default,
+    MovieForm: require('@/components/MovieForm.vue').default,
   },
   data() { return {
-    actor: {
-      name: '',
-      age: '',
-      gender: 0,
+    movie: {
+      title: '',
+      release_date: '',
     },
     formMeta: {
       valid: true,
@@ -33,16 +32,15 @@ export default {
     close() {
       this.formMeta.disabled = true
       this.submitting = true
-      this.$api.request('POST', '/actors', this.actor)
+      this.$api.request('POST', '/movies', this.movie)
       .then(res => {
         console.log(res)
-        if (res.error == 422) {
+        if (res.success) {
+          hub.$emit('add-movie', res.movie)
+          this.$router.push('/movies')
+        } else {
           this.formMeta.disabled = false
           this.submitting = false
-          alert("Unprocessable!")
-        } else {
-          hub.$emit('add-actor', res.actor)
-          this.$router.push('/actors')
         }
       })
     }

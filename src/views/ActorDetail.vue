@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import hub from './ActorHub'
+import hub from './hub'
 export default {
   components: {
     Modal: require('@/components/ui/Modal.vue').default,

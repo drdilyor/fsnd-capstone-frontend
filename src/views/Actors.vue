@@ -27,7 +27,7 @@
           </td>
           <td>{{ actor.age }}</td>
           <td>{{ ['Man', 'Woman'][actor.gender] }}
-            <button class="btn-close btn btn-danger float-end" @click="$router.push('/actors/'+actor.id+'/delete')"/>
+            <button v-if="$auth.can('delete:actor')" class="btn-close btn btn-danger float-end" @click="$router.push('/actors/'+actor.id+'/delete')"/>
           </td>
         </tr>
       </tbody>
@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import hub from './ActorHub'
+import hub from './hub'
 export default {
   data() { return {
     actors: null,
